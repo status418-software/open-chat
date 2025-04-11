@@ -13,6 +13,3 @@ This will leave you in a prompt window in terminal
 
 to run a test from the makefile via curl you can update the prompt in the makefile and run
 - make test 
-
-
-
