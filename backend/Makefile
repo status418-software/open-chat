@@ -15,8 +15,8 @@ run:
 		-v ollama_data:/root/.ollama \
 		$(IMAGE_NAME)
 
-# leaves the terminal open in a usable prompt
-# pull-model:
+# pulls the model and leaves the terminal open in a usable prompt, leaving this commented out for now because its not that useful unless you want to have a terminal window consumed by this. It will probably get removed in the future, but this is what I was initially using to test this. 
+# pull-model-prompt:
 # 	docker exec -it $(CONTAINER_NAME) ollama run $(MODEL_NAME)
 
 # pulls the model but does not leave it running in the terminal
@@ -53,7 +53,7 @@ test:
 # stops the container and removes it
 stop:
 	docker stop $(CONTAINER_NAME) || true
-	docker rm $(CONTAINER_NAME) || truee
+	docker rm $(CONTAINER_NAME) || true
 
 # runs make stop then removes the volume
 clean: stop
