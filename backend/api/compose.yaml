@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      context: ./
+    container_name: api
+    ports:
+      - "8080:8080"
+    environment:
+      - OLLAMA_MODEL=llama3.2
+    networks:
+      - ollama-net
+
+networks:
+  ollama-net:
+    external: true

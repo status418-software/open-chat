@@ -1,0 +1,17 @@
+services:
+  ollama:
+    image: alpine/llama3.2
+    container_name: ollama3.2
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - ollama-net
+
+volumes:
+  ollama_data:
+
+networks:
+  ollama-net:
+    external: true
