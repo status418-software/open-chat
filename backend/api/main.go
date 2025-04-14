@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 type OllamaRequest struct {
@@ -35,7 +36,11 @@ func queryOllama(model string, prompt string) (string, error) {
 		return "", fmt.Errorf("error marshalling request: %w", err)
 	}
 
-	resp, err := http.Post(ollamaURL, "application/json", bytes.NewBuffer(requestBody))
+	client := &http.Client{
+		Timeout: 60 * time.Second, // 60 second timeout for now
+	}
+
+	resp, err := client.Post(ollamaURL, "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
 		return "", fmt.Errorf("error sending request to Ollama: %w", err)
 	}
