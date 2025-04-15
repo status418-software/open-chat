@@ -53,4 +53,3 @@ clobber:
 	cd utility; chmod +x ./clobber-docker.sh; ./clobber-docker.sh
 
 restart: ollama-stop api-stop remove-network create-network ollama api
-	
