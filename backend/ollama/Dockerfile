@@ -2,8 +2,7 @@ FROM alpine/llama3.2
 
 ENV OLLAMA_MODELS=/root/.ollama
 
-# Ollama default port
+# Ollama default port (can change if we need to)
 EXPOSE 11434
 
-# Start the Ollama server
 CMD ["ollama", "serve"]
