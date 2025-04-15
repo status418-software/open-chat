@@ -1,6 +1,6 @@
 CONTAINER_NAME=ollama
-# MODEL_NAME=llama3.2:1b
-MODEL_NAME=tinyllama
+MODEL_NAME=llama3.2:1b
+# MODEL_NAME=tinyllama
 API_DIR=backend/api
 OLLAMA_DIR=backend/ollama
 GO_API_IMAGE_NAME=api

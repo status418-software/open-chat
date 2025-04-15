@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/rs/cors"
 )
 
 type OllamaRequest struct {
@@ -113,5 +115,12 @@ func main() {
 		port = "8080"
 	}
 	fmt.Printf("Go API server listening on port %s...\n", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:8081"},
+		AllowedMethods: []string{"GET", "POST", "OPTIONS"},
+		AllowedHeaders: []string{"Content-Type"},
+	}).Handler(http.DefaultServeMux)
+
+	log.Fatal(http.ListenAndServe(":"+port, corsHandler))
 }

@@ -1,4 +1,5 @@
 import { IMessageObject } from "@/types/messageTypes";
+import sendPrompt from "@/utils/sendPrompt";
 import { useEffect, useRef, useState } from "react";
 import {
   Text,
@@ -16,7 +17,7 @@ export default function Index() {
   const [userInput, setUserInput] = useState("");
   const flatListRef = useRef<FlatList>(null);
 
-  const handleSubmitMessage = () => {
+  const handleSubmitMessage = async () => {
     const inputText = userInput.trim();
     if (inputText === "") return;
 
@@ -27,6 +28,14 @@ export default function Index() {
 
     setMessages((prev) => [...prev, newMessage]);
     setUserInput("");
+    const reply = await sendPrompt(inputText);
+    setMessages((prev) => [
+      ...prev,
+      {
+        from: "chatbot",
+        message: reply.response,
+      },
+    ]);
   };
 
   useEffect(() => {
@@ -36,7 +45,7 @@ export default function Index() {
   }, [messages]);
 
   return (
-    <KeyboardAvoidingView>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <FlatList
           data={messages}

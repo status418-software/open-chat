@@ -3,4 +3,8 @@ interface IMessageObject {
   message: string;
 }
 
-export type { IMessageObject };
+interface IPromptResponse {
+  response: string;
+}
+
+export type { IMessageObject, IPromptResponse };
