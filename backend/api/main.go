@@ -90,10 +90,10 @@ func queryHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: variable so models can be selected, from now this defaults to 3.2
+	// TODO: variable so models can be selected, from now this defaults to tinyllama
 	model := os.Getenv("OLLAMA_MODEL")
 	if model == "" {
-		model = "llama3.2:1b" // Defaults to a smaller model to keep rebuilds down.
+		model = "tinyllama" // Defaults to a smaller model to keep rebuilds down.
 	}
 
 	response, err := queryOllama(model, prompt)

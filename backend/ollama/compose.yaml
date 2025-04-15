@@ -1,7 +1,7 @@
 services:
   ollama:
     image: alpine/llama3.2
-    container_name: ollama3.2
+    container_name: ollama
     ports:
       - "11434:11434"
     volumes:
