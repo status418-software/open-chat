@@ -6,7 +6,8 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - OLLAMA_MODEL=tinyllama
+      # - OLLAMA_MODEL=tinyllama
+      - OLLAMA_MODEL=llama3.2:1b
     networks:
       - ollama-net
 
