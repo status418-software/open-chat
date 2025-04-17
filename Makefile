@@ -25,16 +25,15 @@ help:
 
 .PHONY: build copy-model pull-model create-network remove-network ollama-start ollama-stop api-start api-stop clean clobber restart 
 
+# build will attempt to copy models from host, if not available it will pull them
 build:
-	@$(MAKE) ollama
+	@$(MAKE) ollama-start
 	@$(MAKE) copy-model || $(MAKE) pull-model
-	@$(MAKE) api
+	@$(MAKE) api-start
 
 copy-model:
-	docker run --rm \
-	-v ollama_data:/root/.ollama \
-	-v "$(HOME)/.ollama/models:/host_models" \
-	alpine sh -c "mkdir -p /root/.ollama/models && cp -r /host_models/* /root/.ollama/models/"
+	@echo "Copying models into the running Ollama container..."
+	docker cp "$(HOME)/.ollama/models/." $(CONTAINER_NAME):/root/.ollama/models
 
 pull-model:
 	docker exec $(CONTAINER_NAME) ollama pull $(MODEL_NAME)
@@ -58,9 +57,9 @@ api-stop:
 	cd $(API_DIR); docker compose down -v
 
 clean:
-	cd tools; chmod +x ./clean-docker.sh; ./clean-docker.sh
+	cd $(TOOLS_DIR); chmod +x ./clean-docker.sh; ./clean-docker.sh
 
 clobber:
-	cd tools; chmod +x ./clobber-docker.sh; ./clobber-docker.sh
+	cd $(TOOLS_DIR); chmod +x ./clobber-docker.sh; ./clobber-docker.sh
 
 restart: ollama-stop api-stop remove-network create-network ollama api
